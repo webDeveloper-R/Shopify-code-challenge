@@ -1,0 +1,18 @@
+{% for link in linklists.sidebar.links %}
+{% assign cur_parent = link.title | handleize %}
+{% assign cur_parent_url = link.url %}
+{% if linklists.[cur_parent].links.size > 0 %}
+{% for link in linklists.[cur_parent].links %}
+{% if link.title == collection.title %}
+{% assign parent = cur_parent %}
+{% assign parent_url = cur_parent_url %}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endfor %}
+
+<div class="breadcrumbs">
+    <a href="/">home</a> /
+    {% if parent.size > 0 %}<a href="{{ parent_url }}">{{ parent }}</a> /{% endif %}
+    <a href="{{ collection.url }}">{{ collection.title }}</a>
+</div> <!-- end #breadcrumbs -->
